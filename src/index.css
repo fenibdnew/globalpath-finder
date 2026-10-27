@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    border-color: var(--color-slate-800);
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+/* Print Styles for Consolidated Embassy Checklist */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Hide interactive app UI during print */
+  body * {
+    visibility: hidden !important;
+  }
+
+  header, 
+  nav, 
+  button, 
+  .no-print {
+    display: none !important;
+  }
+
+  /* Force printable sheet to be isolated and visible */
+  #printable-embassy-checklist,
+  #printable-embassy-checklist * {
+    visibility: visible !important;
+    display: block;
+  }
+
+  #printable-embassy-checklist {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  #printable-embassy-checklist tr {
+    display: table-row !important;
+  }
+
+  #printable-embassy-checklist td,
+  #printable-embassy-checklist th {
+    display: table-cell !important;
+  }
+
+  #printable-embassy-checklist table {
+    display: table !important;
+  }
+
+  #printable-embassy-checklist thead {
+    display: table-header-group !important;
+  }
+
+  #printable-embassy-checklist tbody {
+    display: table-row-group !important;
+  }
+
+  /* Ensure text colors inside printable sheet are dark and high-contrast */
+  #printable-embassy-checklist * {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}

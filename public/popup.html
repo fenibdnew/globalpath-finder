@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GlobalPath Finder Engine</title>
+  <style>
+    body {
+      width: 360px;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 12px;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      box-sizing: border-box;
+    }
+    .header {
+      font-weight: bold;
+      color: #4285f4;
+      border-bottom: 1px solid #333;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .section-card {
+      background: #2d2d2d;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border-left: 4px solid #34a853;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .ticker {
+      color: #ea4335;
+      font-weight: bold;
+      animation: blink 2s infinite;
+      margin-top: 4px;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.55; }
+    }
+    .credit {
+      font-size: 11px;
+      color: #aaaaaa;
+      text-align: center;
+      margin-top: 15px;
+      border-top: 1px solid #333;
+      padding-top: 8px;
+    }
+    .portal-link {
+      display: block;
+      margin-top: 10px;
+      background: #4285f4;
+      color: #ffffff;
+      text-align: center;
+      padding: 8px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .portal-link:hover {
+      background: #3367d6;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">🌍 GlobalPath Finder Engine</div>
+  
+  <div class="section-card">
+    <div>🟢 Airfare Velocity Update:</div>
+    <div class="ticker" id="ticker-status">FETCHING LIVE DATA...</div>
+  </div>
+
+  <div class="section-card" id="job-headlines">
+    <strong>Verified Employers:</strong> Loading active seasonal quotas...
+  </div>
+
+  <a href="/" target="_blank" class="portal-link">🚀 Open Full Web App & Android View</a>
+
+  <div class="credit">
+    Developed by ARIFUZZAMAN<br>East Bijoy Singh, Feni, Bangladesh
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

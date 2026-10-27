@@ -1,0 +1,8 @@
+{
+  "name": "GlobalPath Finder",
+  "description": "Worldwide immigration, visa assistant, recruitment tracker, universal calendar, and travel hub created by Arifuzzaman.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
