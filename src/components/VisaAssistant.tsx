@@ -156,15 +156,17 @@ export const VisaAssistant: React.FC<VisaAssistantProps> = ({
       {/* Hidden container dedicated to window.print() media query */}
       <PrintableChecklist checklist={checklist} />
 
-      {/* Floating Action Button (FAB) triggering window.print() for Clean PDF Checklist */}
+      {/* Floating Action Button (FAB) on Euro Visa screen specifically triggering window.print() targeting '#printable-embassy-checklist' */}
       <div className="fixed bottom-24 sm:bottom-8 right-5 sm:right-8 z-50 no-print">
         <button
+          id="euro-visa-floating-print-fab"
+          data-target="#printable-embassy-checklist"
           onClick={handleDirectPrint}
-          aria-label="Print Document Checklist to PDF"
-          title="Print official document checklist to clean PDF (window.print())"
-          className="relative flex items-center space-x-2.5 px-4 sm:px-5 py-3.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-2xl shadow-blue-500/50 border border-blue-400/40 transition-all transform hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-blue-500/30"
+          aria-label="Print Document Checklist targeting #printable-embassy-checklist"
+          title="Print official document checklist to clean PDF (targets #printable-embassy-checklist)"
+          className="relative flex items-center space-x-2.5 px-4 sm:px-5 py-3.5 rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm shadow-2xl shadow-blue-500/50 border border-blue-400/40 transition-all transform hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-blue-500/30 cursor-pointer"
         >
-          {/* Subtle live radar ping indicator */}
+          {/* Live radar ping indicator */}
           <span className="absolute -top-1 -right-1 flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
@@ -222,11 +224,11 @@ export const VisaAssistant: React.FC<VisaAssistantProps> = ({
 
         {/* Embassy PDF Checklist Generator Action Buttons Toolbar */}
         <div className="flex items-center space-x-2 pb-2 sm:pb-1 no-print">
-          {/* Printer Icon Button in Toolbar calling window.print() targeting printable-embassy-checklist */}
+          {/* Printer Icon Button in Toolbar calling window.print() targeting #printable-embassy-checklist */}
           <button
             id="euro-visa-toolbar-print-btn"
             onClick={handleDirectPrint}
-            data-target="printable-embassy-checklist"
+            data-target="#printable-embassy-checklist"
             aria-label="Print Embassy Document Checklist targeting #printable-embassy-checklist"
             title="Print Embassy Document Checklist (#printable-embassy-checklist)"
             className="p-2 sm:px-3 sm:py-2 rounded-xl bg-slate-800 hover:bg-blue-600 text-slate-200 hover:text-white font-bold text-xs border border-slate-700 hover:border-blue-500 transition-all shadow-sm flex items-center space-x-1.5 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"

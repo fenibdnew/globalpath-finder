@@ -1,86 +1,409 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>GlobalPath Finder Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GlobalPath Finder</title>
   <style>
-    body {
-      width: 360px;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 12px;
-      background-color: #1e1e1e;
-      color: #ffffff;
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: #111827;
+      --card-border: #1f2937;
+      --primary-blue: #3b82f6;
+      --emerald-accent: #10b981;
+      --rose-accent: #f43f5e;
+      --amber-accent: #f59e0b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+    }
+
+    * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
-    .header {
-      font-weight: bold;
-      color: #4285f4;
-      border-bottom: 1px solid #333;
-      padding-bottom: 8px;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    .section-card {
-      background: #2d2d2d;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 6px;
-      border-left: 4px solid #34a853;
+
+    body {
+      width: 390px;
+      min-width: 360px;
+      max-width: 440px;
+      max-height: 590px;
+      overflow-y: auto;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      padding: 14px;
       font-size: 13px;
       line-height: 1.4;
     }
-    .ticker {
-      color: #ea4335;
-      font-weight: bold;
-      animation: blink 2s infinite;
-      margin-top: 4px;
+
+    body::-webkit-scrollbar {
+      width: 5px;
     }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.55; }
+    body::-webkit-scrollbar-track {
+      background: #0b1120;
     }
-    .credit {
-      font-size: 11px;
-      color: #aaaaaa;
-      text-align: center;
-      margin-top: 15px;
-      border-top: 1px solid #333;
-      padding-top: 8px;
+    body::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
     }
-    .portal-link {
-      display: block;
-      margin-top: 10px;
-      background: #4285f4;
-      color: #ffffff;
-      text-align: center;
-      padding: 8px;
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 800;
+      font-size: 14px;
+      color: #60a5fa;
+      letter-spacing: -0.2px;
+    }
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #34d399;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: var(--emerald-accent);
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.3); }
+    }
+
+    .timeline-pill {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 4px 8px;
       border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 11px;
+      margin-bottom: 10px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radar-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #1f2937;
+    }
+    .radar-item:last-child {
+      border-bottom: none;
+      padding-bottom: 2px;
+    }
+    .route-code {
+      font-weight: 700;
+      font-size: 12px;
+      color: #f9fafb;
+    }
+    .route-sub {
+      font-size: 10px;
+      color: var(--text-dim);
+    }
+    .price-box {
+      text-align: right;
+    }
+    .price-val {
+      font-weight: 800;
+      font-size: 13px;
+      color: #38bdf8;
+    }
+    .action-badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .badge-buy {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .badge-hold {
+      background: rgba(244, 63, 94, 0.2);
+      color: #fb7185;
+      border: 1px solid rgba(244, 63, 94, 0.4);
+    }
+
+    .visa-chip-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+    .visa-chip {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    .job-item {
+      padding: 8px;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .job-item:last-child {
+      margin-bottom: 0;
+    }
+    .job-title {
+      font-weight: 700;
+      color: #f3f4f6;
       font-size: 12px;
     }
-    .portal-link:hover {
-      background: #3367d6;
+    .job-company {
+      color: #60a5fa;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .job-contact {
+      font-size: 10px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+    .job-contact a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    .job-contact a:hover {
+      text-decoration: underline;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+      margin-bottom: 10px;
+    }
+    .btn-action {
+      flex: 1;
+      text-align: center;
+      background: #1e293b;
+      color: #e2e8f0;
+      border: 1px solid #334155;
+      padding: 8px 4px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s ease;
+    }
+    .btn-action:hover {
+      background: #334155;
+      color: #ffffff;
+    }
+
+    /* Permanent Developer Tribute */
+    .developer-tribute-container {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      border-radius: 10px;
+      padding: 11px 12px;
+      text-align: center;
+      margin-top: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .developer-tribute-badge {
+      display: inline-block;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #60a5fa;
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+    .developer-tribute-text {
+      font-size: 11px;
+      color: #f1f5f9;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+    .developer-tribute-highlight {
+      color: #38bdf8;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
-  <div class="header">🌍 GlobalPath Finder Engine</div>
-  
-  <div class="section-card">
-    <div>🟢 Airfare Velocity Update:</div>
-    <div class="ticker" id="ticker-status">FETCHING LIVE DATA...</div>
+
+  <!-- Header -->
+  <div class="header-bar">
+    <div class="brand-title">
+      <span>🌍</span> GlobalPath Finder
+    </div>
+    <div class="live-badge">
+      <span class="pulse-dot"></span>
+      <span id="sync-status">LIVE SYNC</span>
+    </div>
   </div>
 
-  <div class="section-card" id="job-headlines">
-    <strong>Verified Employers:</strong> Loading active seasonal quotas...
+  <!-- Timeline Anchor -->
+  <div class="timeline-pill">
+    <span>Temporal Synchronization:</span>
+    <strong id="live-timeline-date" style="color: #60a5fa;">Tuesday, October 27, 2026</strong>
   </div>
 
-  <a href="/" target="_blank" class="portal-link">🚀 Open Full Web App & Android View</a>
+  <!-- Minute-by-Minute Airfare Price Velocity Tracking -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">✈️ Minute-by-Minute Airfare Velocity</span>
+      <span style="font-size: 9px; color: #10b981; font-weight: 700;" id="velocity-trend-tag">VOLATILE_UPWARD</span>
+    </div>
+    <div id="airfare-radar-container">
+      <div class="radar-item">
+        <div>
+          <div class="route-code">DAC ⇄ FRA (Frankfurt)</div>
+          <div class="route-sub">Qatar Airways / Turkish • 1 Stop</div>
+        </div>
+        <div class="price-box">
+          <div class="price-val" id="price-fra">$720</div>
+          <span class="action-badge badge-buy" id="badge-fra">BUY NOW (-18%)</span>
+        </div>
+      </div>
+      <div class="radar-item">
+        <div>
+          <div class="route-code">DAC ⇄ FCO (Rome)</div>
+          <div class="route-sub">Emirates / Saudia • 1 Stop</div>
+        </div>
+        <div class="price-box">
+          <div class="price-val" id="price-fco">$860</div>
+          <span class="action-badge badge-hold" id="badge-fco">HOLD (PEAK)</span>
+        </div>
+      </div>
+      <div class="radar-item">
+        <div>
+          <div class="route-code">DAC ⇄ MAD (Madrid)</div>
+          <div class="route-sub">Gulf Air / Qatar • 1 Stop</div>
+        </div>
+        <div class="price-box">
+          <div class="price-val" id="price-mad">$685</div>
+          <span class="action-badge badge-buy" id="badge-mad">STRONG BUY (-22%)</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <div class="credit">
-    Developed by ARIFUZZAMAN<br>East Bijoy Singh, Feni, Bangladesh
+  <!-- Live Global Sessional Visas -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">🛂 Live Global Sessional Visas</span>
+      <span style="font-size: 9px; color: #f59e0b; font-weight: 700;">Q4 2026 ACTIVE</span>
+    </div>
+    <p style="font-size: 11px; color: #94a3b8; margin-bottom: 4px;">
+      Active fast-track and seasonal immigration quotas verified today:
+    </p>
+    <div class="visa-chip-container" id="sessional-visas-container">
+      <span class="visa-chip">🌾 Agriculture Quota (Italy/Spain)</span>
+      <span class="visa-chip">🏨 Hospitality Drivers (Romania)</span>
+      <span class="visa-chip">🏗️ Construction Schemes (Croatia)</span>
+      <span class="visa-chip">⚡ Germany Chancenkarte 2026/27</span>
+      <span class="visa-chip">💻 Portugal Tech Talent Path</span>
+    </div>
+  </div>
+
+  <!-- Verified Employer Contact Vacancy Listings -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">💼 Verified Employer Vacancies</span>
+      <span style="font-size: 9px; color: #38bdf8; font-weight: 700;">DIRECT SPONSORS</span>
+    </div>
+    <div id="verified-employers-container">
+      <div class="job-item">
+        <div class="job-title">EuroStaff Solutions Ltd.</div>
+        <div class="job-company">Industry: Hospitality & Agriculture • Bucharest, Romania</div>
+        <div class="job-contact">
+          Email: <a href="mailto:recruitment@eurostaff-solutions.eu">recruitment@eurostaff-solutions.eu</a> • 
+          <a href="https://eurostaff-solutions.eu" target="_blank" rel="noreferrer">Apply Portal</a>
+        </div>
+      </div>
+      <div class="job-item">
+        <div class="job-title">TransBaltic Logistics Sp. z o.o.</div>
+        <div class="job-company">Industry: Transport & Heavy Logistics • Poznań, Poland</div>
+        <div class="job-contact">
+          Email: <a href="mailto:careers@transbaltic-logistics.pl">careers@transbaltic-logistics.pl</a> • 
+          <a href="https://transbaltic-logistics.pl" target="_blank" rel="noreferrer">Apply Portal</a>
+        </div>
+      </div>
+      <div class="job-item">
+        <div class="job-title">Adria Hospitality Group d.d.</div>
+        <div class="job-company">Industry: Hospitality & Seasonal Gastronomy • Dubrovnik, Croatia</div>
+        <div class="job-contact">
+          Email: <a href="mailto:hr@adria-hospitality.hr">hr@adria-hospitality.hr</a> • 
+          <a href="https://adria-hospitality.hr" target="_blank" rel="noreferrer">Apply Portal</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Controls -->
+  <div class="action-row">
+    <button class="btn-action" id="btn-refresh-feed">🔄 Refresh Feed</button>
+    <a class="btn-action" id="link-web-portal" href="https://ais-dev-jiiazcfsktxy5oam5j3ikk-353815363462.asia-southeast1.run.app" target="_blank">🌐 Web App</a>
+  </div>
+
+  <!-- Permanent Developer Tribute -->
+  <div class="developer-tribute-container" id="developer_tribute">
+    <div class="developer-tribute-badge">CORE CREATOR ACKNOWLEDGEMENT</div>
+    <p class="developer-tribute-text">
+      Developed and Maintained by <span class="developer-tribute-highlight">ARIFUZZAMAN</span> from <span class="developer-tribute-highlight">East Bijoy Singh, Feni, Bangladesh</span>. To hire ARIFUZZAMAN to travel, explore, or guide you on international journeys, connect via the Hire & Travel Portal!
+    </p>
   </div>
 
   <script src="popup.js"></script>
